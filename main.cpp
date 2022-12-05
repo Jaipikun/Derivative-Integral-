@@ -6,14 +6,19 @@ using namespace std;
 
 #define MIN 0.0
 #define MAX 10.0 
-#define N 15
+#define N 17
 #define NH0 3.5
 
  
 //Function used for testing
 double test_function(double x)
 {
-    return pow(x,3);
+    return pow(3,x);
+}
+
+double pi_search(double x)
+{
+    return sqrt(1-(x*x));
 }
 
 //Derivatives
@@ -62,6 +67,7 @@ int main()
     data2.precision(7);
     data3.precision(7);
 
+    //1st and 2nd derivative test
     for(double h = 0.1;h>pow(10,-17);h*=0.1)
     {
         data<<derivative_1(3,h,test_function)<<"\t"<<-log10(h)<<endl;
@@ -73,12 +79,20 @@ int main()
     {
         nh[i]=pow(NH0,i);
     }
-    for(int i = 0;i<N;i++)
+    for(int i = 0;i<=N;i++)
     {
-        data3<<log10(nh[i])<<'\t'<<integral(MIN,MAX,nh[i],test_function)<<endl;
+        cout<<i<<endl; // for time measurement
+        data3<<integral(MIN,MAX,nh[i],test_function)<<'\t'<<i<<endl;
     }
     data.close();
     data2.close();
     data3.close();
+    
+    ofstream pi;
+    pi.open("pi.txt");
+    pi.precision(30);
+    
+    pi<<2*integral(-1,1,100000000,pi_search)<<endl;
+    pi.close();
     return 0;
 }
