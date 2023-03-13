@@ -81,7 +81,7 @@ int main()
     }
     for(int i = 0;i<=N;i++)
     {
-        cout<<i<<endl; // for time measurement
+        cout<<i<<"\t"<<nh[i]<<endl; // for time measurement
         data3<<integral(MIN,MAX,nh[i],test_function)<<'\t'<<i<<endl;
     }
     data.close();
